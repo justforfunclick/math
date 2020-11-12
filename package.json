@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "mathjax-full": "^3.1.2"
+    "@justforfun-click/mathjax": "3.1.2-1"
   }
 }
