@@ -12,7 +12,7 @@ const svg = new SVG();
 const html = mathjax.document('', {InputJax: ascii, OutputJax: svg});
 
 module.exports = async function(context, trigger, input, outputInput) {
-    var path = decodeURI(context.req.params['path'] || 'index.html').replace(/\s+/g, ' ');
+    var path = (context.req.params['path'] || 'index.html').replace(/\s+/g, ' ');
     if (path.startsWith('$/')) {
         var svgContent = adaptor.innerHTML(html.convert(path.substr(2)));
         context.res = {
