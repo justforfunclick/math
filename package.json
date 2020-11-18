@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@justforfun-click/mathjax": "3.1.2-2"
+    "@justforfun-click/mathjax": "3.1.2-3"
   },
   "scripts": {
     "publish": "func azure functionapp publish math-justforfun-click --javascript"
