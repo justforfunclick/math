@@ -2,7 +2,7 @@ const http = require('http');
 const { mathToSvg } = require('@justforfun-click/mathjax/js/mathToSvg');
 
 const listener = (req, res) => {
-    var path = decodeURI(req.url);
+    var path = decodeURIComponent(req.url);
     for (var i = 0; i < path.length; ++i) {
         if (path[i] != '/') {
             path = path.substr(i);
