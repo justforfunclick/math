@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #wrapper {
+            width: 720px;
+            margin: 0 auto;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        nav {
+            border-bottom: 2px solid rgb(150, 50, 50);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            display: inline-block;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .row .wrapper {
+            height: 200px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid rgb(200, 200, 200);
+            padding: 12px;
+            height: 100%;
+        }
+
+        .input {
+            padding: 10px;
+            margin: 4px;
+            margin-left: 10px;
+            background-color:black;
+            border: 1px solid black;
+            color: white;
+        }
+
+    </style>
+    <script src="math-to-svg.bundle.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <nav>
+            <h1>Math To SVG</h1>
+        </nav>
+
+        <p>Online service to convert <a href="http://asciimath.org/">AsciiMath</a> or <a href="https://en.wikibooks.org/wiki/LaTeX">LateX</a> notations to SVG.</p>
+
+        <div class="row">
+            <label>AsciiMath Input:</label>
+            <div class="wrapper">
+                &lt;img src="https://math.justforfun.click/$/
+                <div id="asciiMathInput" class="input" contenteditable=true oninput="onAsciiMathInput()">sum_(i=1)^n i^3=((n(n+1))/2)^2</div>
+                "&gt;
+            </div>
+        </div>
+
+        <div class="row">
+            <label>Render:</label>
+            <div id="asciiMathOutput" class="wrapper"></div>
+        </div>
+
+        <div class="row">
+            <label>LateX Input:</label>
+            <div class="wrapper">
+                &lt;img src="https://math.justforfun.click/$$/
+                <div id="latexInput" class="input" contenteditable=true oninput="onLatexInput()">\sum_{i=1}^n i^3=\left(\frac{n(n+1)}{2}\right)^2</div>
+                "&gt;
+            </div>
+        </div>
+
+        <div class="row">
+            <label>Render:</label>
+            <div id="latexOutput" class="wrapper"></div>
+        </div>
+    </div>
+</body>
+<script>
+    var asciiMathInput = document.getElementById("asciiMathInput");
+    var asciiMathOutput = document.getElementById("asciiMathOutput");
+
+    var latexInput = document.getElementById("latexInput");
+    var latexOutput = document.getElementById("latexOutput");
+
+    onAsciiMathInput();
+    onLatexInput();
+
+    putFocusAtEnd(asciiMathInput);
+
+    function onAsciiMathInput() {
+        asciiMathOutput.innerHTML = mathToSvg("$/" + asciiMathInput.innerText);
+    }
+
+    function onLatexInput() {
+        latexOutput.innerHTML = mathToSvg("$$/" + latexInput.innerText);
+    }
+
+    function putFocusAtEnd(el) {
+        el.focus();
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+</script>
+</html>

@@ -1,8 +1,10 @@
 {
   "dependencies": {
-    "@justforfun-click/mathjax": "3.1.2-3"
+    "@justforfun-click/mathjax": "3.1.2-3",
+    "mime-types": "^2.1.27"
   },
   "scripts": {
+    "build": "browserify src/math-to-svg.js > src/static_files/math-to-svg.bundle.js",
     "start": "node src/index.js"
   }
 }
