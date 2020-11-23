@@ -4,7 +4,7 @@ FROM $FROM
 
 COPY package-lock.json /app/
 COPY package.json /app/
-COPY src/* /app/
+COPY src/. /app/
 
 RUN cd /app && npm install
 
