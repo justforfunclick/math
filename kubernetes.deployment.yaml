@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: math
+  labels:
+    app: math
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: math
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: math
+    spec:
+      containers:
+      - name: math
+        image: justforfunclick/math:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: math
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: math
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: math-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  tls:
+  - hosts:
+    - m.justforfun.click
+    secretName: math-https-cert
+  rules:
+  - host: m.justforfun.click
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: math
+            port:
+              number: 80
