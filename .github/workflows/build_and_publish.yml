@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches:
-      - master
 
 jobs:
   build:
@@ -22,14 +18,11 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: xybdocker.azurecr.io
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: justforfunclick
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
-          push: ${{ github.event_name == 'push' }}
-          tags: xybdocker.azurecr.io/justforfun-math:latest
-          build-args: |
-            FROM=xybdocker.azurecr.io/justforfun-ubuntu
+          push: true
+          tags: justforfunclick/math:latest

@@ -1,5 +1,4 @@
 const http = require('http');
-const https = require('https');
 const mime = require('mime-types');
 const Path = require('path');
 const fs = require('fs');
@@ -39,13 +38,3 @@ var server = http.createServer(listener);
 var port = process.env.PORT || 80;
 server.listen(port);
 console.log(`http server is listening at ${port}`);
-
-if (fs.existsSync(`${__dirname}/public.key`) && fs.existsSync(`${__dirname}/private.key`)) {
-    server = https.createServer({
-        cert: fs.readFileSync(`${__dirname}/public.key`),
-        key: fs.readFileSync(`${__dirname}/private.key`)
-    },listener);
-    port = process.env.SSLPORT || 443;
-    server.listen(port);
-    console.log(`https server is listening at ${port}`);
-}
