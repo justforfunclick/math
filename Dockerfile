@@ -4,12 +4,14 @@ RUN ln -s /usr/share/zoneinfo/US/Pacific /etc/localtime && echo US/Pacific > /et
     apt update && \
     apt install -y npm
 
+RUN npm install browserify -g
+
 COPY package-lock.json /app/
 COPY package.json /app/
-COPY src/. /app/
+COPY src /app/src
 
-RUN cd /app && npm install
+RUN cd /app && npm install && npm run build
 
 EXPOSE 80
 
-ENTRYPOINT ["node", "app/index.js"]
+ENTRYPOINT ["node", "app/src/index.js"]
