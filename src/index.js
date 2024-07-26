@@ -5,6 +5,11 @@ const fs = require('fs');
 const { mathToSvg } = require('@justforfun-click/mathjax/js/mathToSvg');
 
 const listener = (req, res) => {
+    if (Path.normalize(decodeURIComponent(req.url)) !== decodeURIComponent(req.url)) {
+        res.statusCode = 403;
+        res.end();
+        return;
+    }
     var path = decodeURIComponent(req.url);
     var i = 0;
     for (; i < path.length; ++i) {
